@@ -281,3 +281,30 @@
 :root[data-theme="light"] .paste-btn{color:#81521b}
 :root[data-theme="light"] .brand-accent{color:#9a6c30}
 :root[data-theme="light"] footer{border-color:rgba(91,66,31,.14)}
+
+/* Final requested light theme: black text, stronger warm beige background.
+   Preserve existing button colors/gradients. */
+:root[data-theme="light"] body,
+:root[data-theme="light"] body *:not(button):not(button *):not(.button):not(.button *){
+ color:#000 !important;
+}
+:root[data-theme="light"] body{
+ background:
+  radial-gradient(ellipse at 12% 20%,#ead2a8 0%,transparent 38%),
+  radial-gradient(ellipse at 88% 25%,#dfc08b 0%,transparent 40%),
+  linear-gradient(180deg,#f6ead5 0%,#e9d4b1 48%,#d9bd91 100%) !important;
+ background-attachment:fixed;
+}
+:root[data-theme="light"] .features-section{
+ background:rgba(210,180,133,.48) !important;
+}
+:root[data-theme="light"] .download-form,
+:root[data-theme="light"] .visual-card,
+:root[data-theme="light"] .video-preview,
+:root[data-theme="light"] .step,
+:root[data-theme="light"] .closing-box{
+ background:rgba(250,244,231,.84) !important;
+}
+:root[data-theme="light"] .closing-box{
+ background:radial-gradient(ellipse at top,rgba(194,151,88,.22),transparent 65%),rgba(250,244,231,.9) !important;
+}
