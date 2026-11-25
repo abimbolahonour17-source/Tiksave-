@@ -82,3 +82,33 @@
 :root[data-theme="light"] .visual-card{box-shadow:0 22px 60px rgba(90,65,130,.1)}
 :root[data-theme="light"] .switch-sun{display:grid;place-items:center;left:8px;color:#a66bff}
 .switch-sun-icon{width:15px;height:15px;display:block}
+
+/* Screenshot-inspired soft scenic light mode: warm lavender glass */
+:root[data-theme="light"] body{
+ background:
+  radial-gradient(ellipse at 8% 14%,rgba(221,204,255,.56),transparent 34%),
+  radial-gradient(ellipse at 90% 22%,rgba(255,216,232,.62),transparent 32%),
+  linear-gradient(180deg,#fffaf7 0%,#f5efff 52%,#eee7f8 100%);
+ background-attachment:fixed;
+}
+:root[data-theme="light"] .hero-glow{opacity:.17;filter:blur(100px)}
+:root[data-theme="light"] .hero-content{isolation:isolate}
+:root[data-theme="light"] .download-form,
+:root[data-theme="light"] .video-preview,
+:root[data-theme="light"] .visual-card,
+:root[data-theme="light"] .step,
+:root[data-theme="light"] .closing-box{
+ background:rgba(255,255,255,.72);
+ backdrop-filter:blur(18px);
+ -webkit-backdrop-filter:blur(18px);
+ border-color:rgba(255,255,255,.8);
+ box-shadow:0 18px 50px rgba(82,60,122,.10),0 2px 8px rgba(82,60,122,.04);
+}
+:root[data-theme="light"] .download-form{background:rgba(255,255,255,.84)}
+:root[data-theme="light"] .visual-card{background:rgba(255,255,255,.76)}
+:root[data-theme="light"] .video-preview{background:rgba(255,255,255,.84)}
+:root[data-theme="light"] .how-section{background:transparent}
+:root[data-theme="light"] .features-section{background:rgba(232,224,246,.56);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+:root[data-theme="light"] .closing-box{background:radial-gradient(ellipse at top,rgba(173,143,255,.13),transparent 65%),rgba(255,255,255,.82)}
+:root[data-theme="light"] .step{background:rgba(255,255,255,.68)}
+:root[data-theme="light"] .switch-sun{font-size:16px;left:7px;color:#9b60d8}
