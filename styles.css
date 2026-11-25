@@ -37,3 +37,15 @@
 
 .brand-mark{width:42px;height:42px;border-radius:13px;background:none;display:block;flex:none;font-size:initial}.brand{gap:12px}
 .theme-toggle{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:8px 13px;min-height:40px;border:1px solid rgba(166,107,255,.38);border-radius:999px;background:linear-gradient(135deg,rgba(166,107,255,.14),rgba(255,108,190,.12));color:var(--text);font-family:'DM Sans',sans-serif;font-weight:700;font-size:12px;cursor:pointer;transition:transform .18s,border-color .18s,box-shadow .18s;white-space:nowrap}.theme-toggle:hover{transform:translateY(-2px);border-color:rgba(255,108,190,.7);box-shadow:0 5px 24px rgba(166,107,255,.18)}.theme-symbol{font-size:17px;line-height:1}.theme-word{letter-spacing:.2px}.nav-cta{display:none!important}@media(max-width:760px){.theme-toggle{margin-left:auto;margin-right:10px;padding:8px 11px}.brand-mark{width:38px;height:38px}}
+
+/* Sliding theme switch */
+.theme-toggle{position:relative;width:68px;height:36px;min-height:36px;padding:0;margin-left:auto;margin-right:12px;border:1px solid rgba(166,107,255,.35);border-radius:999px;background:linear-gradient(100deg,#ffe9a6 0%,#d6b4ff 100%);display:block;overflow:hidden;box-shadow:inset 0 2px 5px rgba(0,0,0,.12);transition:background .3s,border-color .3s}
+.theme-toggle:hover{transform:none;box-shadow:inset 0 2px 5px rgba(0,0,0,.12)}
+.switch-sun,.switch-moon{position:absolute;top:50%;transform:translateY(-50%);font-size:15px;line-height:1;z-index:1;pointer-events:none}
+.switch-sun{left:9px;color:#936200}.switch-moon{right:9px;color:#fff}
+.switch-knob{position:absolute;top:3px;left:3px;width:28px;height:28px;border-radius:50%;background:#fff;box-shadow:0 2px 6px rgba(0,0,0,.2);transition:transform .28s cubic-bezier(.2,.8,.2,1),background .25s}
+:root[data-theme="dark"] .theme-toggle{background:linear-gradient(100deg,#7d67b7,#29253c);border-color:rgba(255,255,255,.2)}
+:root[data-theme="dark"] .switch-knob{transform:translateX(32px);background:#201d30}
+:root[data-theme="light"] .theme-toggle{background:linear-gradient(100deg,#ffe9a6,#f5cf8e);border-color:rgba(160,115,20,.22)}
+:root[data-theme="light"] .switch-knob{transform:translateX(0);background:#fff}
+@media(max-width:760px){.theme-toggle{margin-left:auto;margin-right:8px}}
