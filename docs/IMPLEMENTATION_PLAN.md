@@ -1,46 +1,40 @@
 # TikSave — Implementation Plan
 
-## Product scope
-A lightweight video-saving website. Current implementation supports direct video file URLs from an allowlisted host; TikTok share-link downloading requires a separate permitted integration and is not available in the official API as an arbitrary-link MP4 endpoint.
+## Product
+A video-saving landing page with TikTok link processing and direct-file downloads, hosted on Vercel and maintained in GitHub.
 
-## Completed
-- [x] Responsive homepage and UI
-- [x] Clipboard paste
-- [x] Form submits to `POST /api/download`
-- [x] Vercel serverless route streams direct video files
-- [x] HTTPS requirement, allowlisted host, redirect rejection, video MIME checks
-- [x] 50 MB max, timeout, safe filename, no-cache headers
-- [x] TikTok share URLs show an honest not-yet-supported notice
+## Completed in repository
+- [x] Responsive homepage and clipboard paste
+- [x] Frontend routes TikTok links to `POST /api/tiktok`
+- [x] Server-side InterAPI TikTok adapter (no provider secret in browser)
+- [x] Supports full TikTok URLs and vm./vt. short-link hostnames
+- [x] Parses provider video media links, preferring HD when labeled
+- [x] Returns download URL to the browser
+- [x] Direct file download endpoint remains available with allowlist, HTTPS, no redirects, MIME validation, 50 MB cap, and timeout
+- [x] Error and timeout messaging
 
-## Phase 1 — Vercel deploy/config
-- Import GitHub repo into Vercel.
-- Set `DOWNLOAD_ALLOWED_HOSTS` to specific approved direct-file hosts.
-- Redeploy and smoke-test API.
-- **Acceptance:** API returns a file for an allowed direct MP4/WebM/MOV and rejects unsupported hosts, redirects, HTML, and oversized files.
+## Deploy configuration
+- GitHub repository is connected to Vercel; commits to the deployment branch should auto-deploy.
+- Recommended Vercel environment variable: `INTERAPI_API_KEY` (provider key; do not expose in client).
+- Optional for direct-file downloads: `DOWNLOAD_ALLOWED_HOSTS` (comma-separated specific approved hosts).
 
-## Phase 2 — TikTok authorization/provider discovery
-- Review official TikTok APIs, scopes, developer approval, data portability options, platform terms, and applicable law.
-- If a provider is used, review its licensing, terms, reliability, security, and data handling.
-- Avoid scraper-based or access-control-bypass workflows.
-- **Acceptance:** Documented permission and API contract; secrets stored in Vercel environment settings.
+## TikTok processing flow
+1. Browser posts the pasted TikTok URL to `/api/tiktok`.
+2. API validates HTTPS URL and TikTok host (including short-link domains).
+3. API calls InterAPI using optional server-side API key.
+4. API chooses an available video download URL from response (HD preferred).
+5. Browser starts download from the provider/CDN URL.
 
-## Phase 3 — TikTok download integration
-- Add provider adapter in serverless API (or separate API route) only after an authorized API contract is selected.
-- Validate TikTok URL server-side and pass only required data to provider.
-- Normalize provider response and stream/download safely.
-- Add rate limits, quotas, timeout, response size cap, provider error mapping.
-- **Acceptance:** Authorized test videos return actual files and non-supported links fail clearly.
+## Limitations
+- Provider quotas, costs, availability, supported content, and provider terms apply.
+- Private, deleted, age-restricted, slideshow, or otherwise unsupported posts may fail.
+- This is not an official TikTok API integration; it uses an independent third-party provider.
+- Download only content you are authorized to save.
 
-## Phase 4 — Testing/security
-- Tests for URL parsing, allowlist, MIME, redirects, maximum size, timeout, TikTok links.
-- Add abuse/rate-limit protections; Vercel functions may require a shared store for distributed limits.
-- Ensure no user URLs or secrets are logged unnecessarily.
-- **Acceptance:** Security and integration tests pass.
-
-## Phase 5 — Launch
-- Configure domain/HTTPS, analytics with privacy review, monitoring, error alerts, and legal pages.
-- Test phone/tablet/desktop and deployed API.
-- **Acceptance:** Production smoke tests pass; rollback plan documented.
-
-## Important limitation
-TikTok share-page URLs are not direct video-file URLs. TikTok's official Display APIs provide video metadata and embed links; Data Portability API is an account data export workflow. Neither is an arbitrary public TikTok share URL downloader. The app therefore does not pretend to download those links until a compliant integration is selected and implemented.
+## Test checklist after deployment
+- [ ] Paste a full public TikTok link and try download
+- [ ] Paste a vm.tiktok.com or vt.tiktok.com short link
+- [ ] Try a private/deleted post (expect a clear error)
+- [ ] Try malformed and non-TikTok URLs on the TikTok route (expect 400)
+- [ ] Test direct-file endpoint with an approved direct MP4 link
+- [ ] Verify production Vercel deployment logs contain no provider keys
