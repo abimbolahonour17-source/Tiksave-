@@ -55,3 +55,30 @@
 .switch-knob{width:24px;height:24px;top:3px;left:3px}
 :root[data-theme="dark"] .switch-knob{transform:translateX(28px)}
 @media(max-width:760px){.theme-toggle{width:60px;height:32px;min-height:32px;margin-right:8px}}
+
+/* Lavender Cloud light theme refinement */
+:root[data-theme="light"]{--bg:#f6f3ff;--panel:#ffffff;--text:#282238;--muted:#777188;--border:#e7e0f2}
+:root[data-theme="light"] body{background:var(--bg)}
+:root[data-theme="light"] .hero-glow{opacity:.12;filter:blur(110px)}
+:root[data-theme="light"] .glow-one{background:#b9a1ff}
+:root[data-theme="light"] .glow-two{background:#ffc1e3}
+:root[data-theme="light"] .how-section{background:transparent}
+:root[data-theme="light"] .step{background:linear-gradient(145deg,#fff,#f9f6ff);border-color:#e8e1f3;box-shadow:0 12px 32px rgba(90,65,130,.055)}
+:root[data-theme="light"] .step-number{color:#8b83a0}
+:root[data-theme="light"] .step-icon{background:#eee7ff;color:#8855d8}
+:root[data-theme="light"] .features-section{background:#efebfa;border-color:#e5def1}
+:root[data-theme="light"] .feature-icon{border-color:#e4d9f3;background:#faf7ff;color:#8855d8}
+:root[data-theme="light"] .feature-list h3{color:#292339}
+:root[data-theme="light"] .feature-list p{color:#777188}
+:root[data-theme="light"] .closing-box{background:radial-gradient(ellipse at top,rgba(139,92,246,.11),transparent 68%),#fff;border-color:#e7e0f2;box-shadow:0 18px 45px rgba(80,55,120,.08)}
+:root[data-theme="light"] .closing-box h2{color:#282238}
+:root[data-theme="light"] footer{border-color:#e7e0f2;color:#777188}
+:root[data-theme="light"] .footer-brand{color:#282238}
+:root[data-theme="light"] .brand-accent{color:#8e60d9}
+:root[data-theme="light"] .hero-footnote{color:#8b849b}
+:root[data-theme="light"] .eyebrow{color:#8e61d7}
+:root[data-theme="light"] .form-note,:root[data-theme="light"] .trust-row{color:#777188}
+:root[data-theme="light"] .download-form{box-shadow:0 18px 50px rgba(90,65,130,.08)}
+:root[data-theme="light"] .visual-card{box-shadow:0 22px 60px rgba(90,65,130,.1)}
+:root[data-theme="light"] .switch-sun{display:grid;place-items:center;left:8px;color:#a66bff}
+.switch-sun-icon{width:15px;height:15px;display:block}
