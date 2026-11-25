@@ -1,6 +1,6 @@
 // TikSave TikTok resolver (Vercel serverless).
-// Provider: InterAPI. Optional API key increases the documented quota.
-// Do not place the provider key in frontend code.
+// Uses TikWM's public endpoint; no TikSave API key or credit balance is required.
+// TikWM is an independent third-party service and may impose limits or change availability.
 const API_TIMEOUT_MS = 25000;
 const TIKTOK_HOSTS = ["tiktok.com", "vm.tiktok.com", "vt.tiktok.com"];
 
@@ -12,8 +12,9 @@ function sendJson(res, status, body) {
 function isTikTokUrl(raw) {
   try {
     const u = new URL(raw);
+    const host = u.hostname.toLowerCase();
     return u.protocol === "https:" && !u.username && !u.password &&
-      TIKTOK_HOSTS.some((host) => u.hostname.toLowerCase() === host || u.hostname.toLowerCase().endsWith("." + host));
+      TIKTOK_HOSTS.some((domain) => host === domain || host.endsWith("." + domain));
   } catch { return false; }
 }
 function isSafeDownloadUrl(raw) {
@@ -22,18 +23,6 @@ function isSafeDownloadUrl(raw) {
     return u.protocol === "https:" && !u.username && !u.password &&
       !u.hostname.includes(":") && !/^\d+(\.\d+){3}$/.test(u.hostname);
   } catch { return false; }
-}
-function chooseDownload(data) {
-  if (Array.isArray(data?.media)) {
-    const videos = data.media.filter((item) => item && item.type === "video");
-    const hd = videos.find((item) => /hd/i.test(String(item.quality || ""))) || videos[0];
-    if (hd?.download_url && isSafeDownloadUrl(hd.download_url)) return hd.download_url;
-    if (hd?.url && isSafeDownloadUrl(hd.url)) return hd.url;
-  }
-  for (const key of ["video_hd_url", "video_url"]) {
-    if (data?.[key] && isSafeDownloadUrl(data[key])) return data[key];
-  }
-  return null;
 }
 export default async function handler(req, res) {
   if (req.method !== "POST") {
@@ -47,23 +36,42 @@ export default async function handler(req, res) {
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), API_TIMEOUT_MS);
   try {
-    const endpoint = new URL("https://api.interapi.dev/api/v1/tiktok");
-    endpoint.searchParams.set("url", input);
-    const headers = {};
-    if (process.env.INTERAPI_API_KEY) headers["X-API-Key"] = process.env.INTERAPI_API_KEY;
-    const upstream = await fetch(endpoint, { headers, signal: controller.signal });
+    const form = new URLSearchParams({ url: input, hd: "1" });
+    const upstream = await fetch("https://www.tikwm.com/api/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
+      },
+      body: form,
+      signal: controller.signal
+    });
     if (!upstream.ok) {
-      const status = upstream.status === 429 ? 429 : upstream.status >= 500 ? 502 : 422;
-      return sendJson(res, status, { error: upstream.status === 429 ? "TikSave is temporarily rate-limited. Try again later." : "TikTok could not be processed. The video may be private, unavailable, or unsupported." });
+      return sendJson(res, upstream.status === 429 ? 429 : 502, {
+        error: upstream.status === 429 ? "TikWM is rate-limiting requests. Please try again later." : "TikTok could not be processed right now. Please try again."
+      });
     }
-    const data = await upstream.json();
-    const downloadUrl = chooseDownload(data);
+    const result = await upstream.json();
+    if (Number(result?.code) !== 0 || !result?.data) {
+      return sendJson(res, 422, { error: typeof result?.msg === "string" ? result.msg.slice(0, 180) : "TikWM could not process this video. It may be unavailable or unsupported." });
+    }
+    const data = result.data;
+    if (Array.isArray(data.images) && data.images.length) {
+      return sendJson(res, 422, { error: "This TikTok post is a photo slideshow. Only video posts are supported." });
+    }
+    const downloadUrl = [data.hdplay, data.play].find((url) => typeof url === "string" && isSafeDownloadUrl(url));
     if (!downloadUrl) {
-      return sendJson(res, 422, { error: "The provider did not return a video file for this link. It may be private, deleted, age-restricted, or a slideshow." });
+      return sendJson(res, 422, { error: "TikWM did not return a valid video link for this post." });
     }
-    return sendJson(res, 200, { download_url: downloadUrl, filename: "tiktok-video.mp4", title: typeof data.title === "string" ? data.title.slice(0, 180) : "" });
+    return sendJson(res, 200, {
+      download_url: downloadUrl,
+      filename: "tiktok-video.mp4",
+      title: typeof data.title === "string" ? data.title.slice(0, 180) : ""
+    });
   } catch (error) {
-    return sendJson(res, error.name === "AbortError" ? 504 : 502, { error: error.name === "AbortError" ? "TikTok processing timed out. Please try again." : "TikSave could not reach the TikTok processing provider." });
+    return sendJson(res, error.name === "AbortError" ? 504 : 502, {
+      error: error.name === "AbortError" ? "TikTok processing timed out. Please try again." : "TikSave could not reach TikWM. Please try again later."
+    });
   } finally {
     clearTimeout(timer);
   }
