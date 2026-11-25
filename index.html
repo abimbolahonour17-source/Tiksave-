@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="TikSave helps you save TikTok videos you have permission to download.">
+  <title>TikSave — Save videos simply</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#" aria-label="TikSave home"><span class="brand-mark">t</span><span>Tik<span class="brand-accent">Save</span></span></a>
+    <nav class="nav" aria-label="Main navigation">
+      <a href="#how">How it works</a><a href="#features">Features</a>
+      <a class="nav-cta" href="#download">Try it <span aria-hidden="true">↗</span></a>
+    </nav>
+    <button class="menu-button" aria-label="Toggle menu" aria-expanded="false">☰</button>
+  </header>
+
+  <main>
+    <section class="hero" id="download">
+      <div class="hero-glow glow-one"></div><div class="hero-glow glow-two"></div>
+      <div class="hero-content">
+        <div class="eyebrow"><span class="pulse"></span> SIMPLE VIDEO SAVING</div>
+        <h1>Your videos.<br><span class="gradient-text">Your moments.</span></h1>
+        <p class="hero-copy">Keep the videos you love close. Paste a TikTok link below to get started.</p>
+        <form class="download-form" id="link-form">
+          <label class="sr-only" for="video-url">TikTok video link</label>
+          <div class="input-wrap"><span class="link-icon" aria-hidden="true">↗</span><input id="video-url" type="url" placeholder="Paste TikTok video link here..." autocomplete="url"><button type="button" class="paste-btn" id="paste-btn">Paste</button></div>
+          <button type="submit" class="download-btn"><span>Download video</span><span aria-hidden="true">↓</span></button>
+        </form>
+        <p class="form-note" id="status" aria-live="polite">Use a video link you have permission to save.</p>
+        <div class="trust-row"><span>✦ No account needed</span><span>✦ Simple & quick</span><span>✦ Mobile friendly</span></div>
+      </div>
+      <div class="visual-card" aria-hidden="true">
+        <div class="card-top"><span class="tiny-dot"></span><span class="tiny-dot"></span><span class="tiny-dot"></span><span class="card-label">YOUR SAVED MOMENTS</span></div>
+        <div class="video-art"><div class="art-orbit orbit-a"></div><div class="art-orbit orbit-b"></div><div class="play-circle">▶</div><div class="art-star star-a">✦</div><div class="art-star star-b">✧</div><div class="art-star star-c">✦</div><div class="art-caption">Moments worth<br><b>keeping.</b></div></div>
+        <div class="card-bottom"><div class="file-icon">▣</div><div><strong>Video link</strong><small>Ready when you are</small></div><div class="ready-pill">READY</div></div>
+      </div>
+      <div class="hero-footnote">Save content responsibly. Respect creators' rights and platform rules.</div>
+    </section>
+
+    <section class="how-section" id="how">
+      <div class="section-heading"><div class="eyebrow">THREE EASY STEPS</div><h2>Save in a few clicks.</h2><p>We keep the process straightforward so you can get on with your day.</p></div>
+      <div class="steps"><article class="step"><div class="step-number">01</div><div class="step-icon">↗</div><h3>Copy the link</h3><p>On TikTok, open the video you want to save and copy its link.</p></article><article class="step"><div class="step-number">02</div><div class="step-icon">⌘</div><h3>Paste it here</h3><p>Drop the link into the input field above. We’ll check that it looks valid.</p></article><article class="step"><div class="step-number">03</div><div class="step-icon">↓</div><h3>Download video</h3><p>When download processing is connected, save the video to your device.</p></article></div>
+    </section>
+
+    <section class="features-section" id="features"><div class="features-inner"><div class="features-copy"><div class="eyebrow">MADE TO BE EASY</div><h2>Less fuss.<br><span class="gradient-text">More moments.</span></h2><p>A lightweight experience with the essentials. No clutter, no complicated steps—just a clean place to start.</p></div><div class="feature-list"><article><div class="feature-icon">◉</div><div><h3>Simple by design</h3><p>A clear interface that works on desktop, tablet, and mobile.</p></div></article><article><div class="feature-icon">⌁</div><div><h3>Link validation</h3><p>Helpful feedback if the link is missing or doesn’t look like a TikTok URL.</p></div></article><article><div class="feature-icon">♡</div><div><h3>Creator-first</h3><p>Use only content you own or have permission to download and keep.</p></div></article></div></div></section>
+    <section class="closing"><div class="closing-box"><div class="closing-spark">✦</div><h2>Ready to save a moment?</h2><p>Copy a TikTok link and start above.</p><a href="#download" class="closing-btn">Back to the downloader <span>↑</span></a></div></section>
+  </main>
+  <footer><a class="brand footer-brand" href="#"><span class="brand-mark">t</span><span>Tik<span class="brand-accent">Save</span></span></a><span>Save responsibly. Respect creators.</span><div class="footer-links"><a href="#how">How it works</a><a href="#features">Features</a></div></footer>
+  <script src="script.js"></script>
+</body>
+</html>
