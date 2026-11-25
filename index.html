@@ -32,6 +32,10 @@
           <div class="input-wrap"><span class="link-icon" aria-hidden="true">↗</span><input id="video-url" type="url" placeholder="Paste TikTok video link here..." autocomplete="url"><button type="button" class="paste-btn" id="paste-btn">Paste</button></div>
           <button type="submit" class="download-btn"><span>Download video</span><span aria-hidden="true">↓</span></button>
         </form>
+        <div class="video-preview" id="video-preview" hidden aria-live="polite">
+          <div class="preview-thumb-wrap"><img id="preview-thumb" alt="TikTok video preview"><span class="preview-play" aria-hidden="true">▶</span></div>
+          <div class="preview-details"><div class="preview-label">VIDEO PREVIEW</div><h2 id="preview-title">TikTok video</h2><p>Preview this video before downloading.</p><button type="button" class="preview-download-btn" id="preview-download-btn">Download this video <span aria-hidden="true">↓</span></button></div>
+        </div>
         <p class="form-note" id="status" aria-live="polite">Use a video link you have permission to save.</p>
         <div class="trust-row"><span>✦ No account needed</span><span>✦ Simple & quick</span><span>✦ Mobile friendly</span></div>
       </div>
