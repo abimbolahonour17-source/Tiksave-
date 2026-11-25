@@ -1,61 +1,46 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="TikSave helps you save TikTok videos you have permission to download.">
-  <title>TikSave — Save videos simply</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="TikSave helps you save TikTok videos you have permission to download. Less fuss. More moments.">
+<meta name="theme-color" content="#111318">
+<title>TikSave — Less fuss. More moments.</meta>
+<link rel="canonical" href="https://tiksave.vercel.app/">
+<meta property="og:type" content="website"><meta property="og:title" content="TikSave — Less fuss. More moments."><meta property="og:description" content="Save the videos you love in just a few taps."><meta property="og:image" content="https://tiksave.vercel.app/og-image.svg">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="TikSave — Less fuss. More moments."><meta name="twitter:description" content="Save the videos you love in just a few taps."><meta name="twitter:image" content="https://tiksave.vercel.app/og-image.svg">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <header class="topbar">
-    <a class="brand" href="#" aria-label="TikSave home"><span class="brand-mark">t</span><span>Tik<span class="brand-accent">Save</span></span></a>
-    <nav class="nav" aria-label="Main navigation">
-      <a href="#how">How it works</a><a href="#features">Features</a>
-      <a class="nav-cta" href="#download">Try it <span aria-hidden="true">↗</span></a>
-    </nav>
-    <button class="menu-button" aria-label="Toggle menu" aria-expanded="false">☰</button>
-  </header>
-
-  <main>
-    <section class="hero" id="download">
-      <div class="hero-glow glow-one"></div><div class="hero-glow glow-two"></div>
-      <div class="hero-content">
-        <div class="eyebrow"><span class="pulse"></span> SIMPLE VIDEO SAVING</div>
-        <h1>Your videos.<br><span class="gradient-text">Your moments.</span></h1>
-        <p class="hero-copy">Keep the videos you love close. Paste a TikTok link below to get started.</p>
-        <form class="download-form" id="link-form">
-          <label class="sr-only" for="video-url">TikTok video link</label>
-          <div class="input-wrap"><span class="link-icon" aria-hidden="true">↗</span><input id="video-url" type="url" placeholder="Paste TikTok video link here..." autocomplete="url"><button type="button" class="paste-btn" id="paste-btn">Paste</button></div>
-          <button type="submit" class="download-btn"><span>Generate video</span><span aria-hidden="true">✦</span></button>
-        </form>
-        <div class="video-preview" id="video-preview" hidden aria-live="polite">
-          <div class="preview-thumb-wrap"><img id="preview-thumb" alt="TikTok video preview"><span class="preview-play" aria-hidden="true">▶</span></div>
-          <div class="preview-details"><div class="preview-label">VIDEO PREVIEW</div><h2 id="preview-title">TikTok video</h2><p>Preview this video before downloading.</p><button type="button" class="preview-download-btn" id="preview-download-btn">Download this video <span aria-hidden="true">↓</span></button></div>
-        </div>
-        <p class="form-note" id="status" aria-live="polite">Use a video link you have permission to save.</p>
-        <div class="trust-row"><span>✦ No account needed</span><span>✦ Simple & quick</span><span>✦ Mobile friendly</span></div>
-      </div>
-      <div class="visual-card" aria-hidden="true">
-        <div class="card-top"><span class="tiny-dot"></span><span class="tiny-dot"></span><span class="tiny-dot"></span><span class="card-label">YOUR SAVED MOMENTS</span></div>
-        <div class="video-art"><div class="art-orbit orbit-a"></div><div class="art-orbit orbit-b"></div><div class="play-circle">▶</div><div class="art-star star-a">✦</div><div class="art-star star-b">✧</div><div class="art-star star-c">✦</div><div class="art-caption">Moments worth<br><b>keeping.</b></div></div>
-        <div class="card-bottom"><div class="file-icon">▣</div><div><strong>Video link</strong><small>Ready when you are</small></div><div class="ready-pill">READY</div></div>
-      </div>
-      <div class="hero-footnote">Save content responsibly. Respect creators' rights and platform rules.</div>
-    </section>
-
-    <section class="how-section" id="how">
-      <div class="section-heading"><div class="eyebrow">THREE EASY STEPS</div><h2>Save in a few clicks.</h2><p>We keep the process straightforward so you can get on with your day.</p></div>
-      <div class="steps"><article class="step"><div class="step-number">01</div><div class="step-icon">↗</div><h3>Copy the link</h3><p>On TikTok, open the video you want to save and copy its link.</p></article><article class="step"><div class="step-number">02</div><div class="step-icon">⌘</div><h3>Paste it here</h3><p>Drop the link into the input field above. We’ll check that it looks valid.</p></article><article class="step"><div class="step-number">03</div><div class="step-icon">↓</div><h3>Download video</h3><p>When download processing is connected, save the video to your device.</p></article></div>
-    </section>
-
-    <section class="features-section" id="features"><div class="features-inner"><div class="features-copy"><div class="eyebrow">MADE TO BE EASY</div><h2>Less fuss.<br><span class="gradient-text">More moments.</span></h2><p>A lightweight experience with the essentials. No clutter, no complicated steps—just a clean place to start.</p></div><div class="feature-list"><article><div class="feature-icon">◉</div><div><h3>Simple by design</h3><p>A clear interface that works on desktop, tablet, and mobile.</p></div></article><article><div class="feature-icon">⌁</div><div><h3>Link validation</h3><p>Helpful feedback if the link is missing or doesn’t look like a TikTok URL.</p></div></article><article><div class="feature-icon">♡</div><div><h3>Creator-first</h3><p>Use only content you own or have permission to download and keep.</p></div></article></div></div></section>
-    <section class="closing"><div class="closing-box"><div class="closing-spark">✦</div><h2>Ready to save a moment?</h2><p>Copy a TikTok link and start above.</p><a href="#download" class="closing-btn">Back to the downloader <span>↑</span></a></div></section>
-  </main>
-  <footer><a class="brand footer-brand" href="#"><span class="brand-mark">t</span><span>Tik<span class="brand-accent">Save</span></span></a><span>Save responsibly. Respect creators.</span><div class="footer-links"><a href="#how">How it works</a><a href="#features">Features</a></div></footer>
-  <script src="script.js"></script>
-</body>
-</html>
+<header class="topbar">
+<a class="brand" href="#" aria-label="TikSave home"><svg class="brand-mark" viewBox="0 0 40 40" aria-hidden="true"><path d="M11 6.5h18v27L20 27l-9 6.5z" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linejoin="round"/><path d="M20 11v11m-4-4 4 4 4-4" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Tik<span class="brand-accent">Save</span></span></a>
+<nav class="nav" id="main-nav" aria-label="Main navigation"><a href="#how">How it works</a><a href="#features">Why TikSave</a><a href="#faq">FAQ</a><a class="nav-cta" href="#download">Try it <span aria-hidden="true">↗</span></a></nav>
+<div class="nav-tools"><button id="theme-toggle" class="theme-toggle" type="button" aria-label="Switch theme"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v2m0 14v2M3 12h2m14 0h2M5.6 5.6 7 7m10 10 1.4 1.4M18.4 5.6 17 7M7 17l-1.4 1.4M12 8a4 4 0 1 0 4 4 4 4 0 0 0-4-4Z"/></svg></button><button class="menu-button" id="menu-button" aria-label="Toggle menu" aria-expanded="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button></div>
+</header>
+<main>
+<section class="hero" id="download">
+<div class="hero-glow glow-one"></div><div class="hero-glow glow-two"></div>
+<div class="hero-grid">
+<div class="hero-content">
+<div class="eyebrow"><span class="pulse"></span> YOUR LITTLE VIDEO TOOL</div>
+<h1>Your videos.<br><span class="highlight-word">Your moments.</span></h1>
+<p class="hero-copy">Less fuss. More moments. Save the videos you love in a few taps.</p>
+<form class="download-form" id="link-form"><label class="sr-only" for="video-url">TikTok video link</label><div class="input-wrap"><svg class="input-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M10 13.5 14.5 9M8.5 15.5l-1 1a4 4 0 0 1-5.7-5.7l3-3a4 4 0 0 1 5.7 0m5 0 1-1a4 4 0 0 1 5.7 5.7l-3 3a4 4 0 0 1-5.7 0"/></svg><input id="video-url" type="url" placeholder="Paste TikTok link here..." autocomplete="url"><button type="button" class="paste-btn" id="paste-btn">Paste</button></div><button type="submit" class="download-btn"><span>Generate video</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 1.6 5.4L19 10l-5.4 1.6L12 17l-1.6-5.4L5 10l5.4-1.6L12 3Z"/><path d="m19 16 .8 2.2L22 19l-2.2.8L19 22l-.8-2.2L16 19l2.2-.8L19 16Z"/></svg></button></form>
+<div class="video-preview" id="video-preview" hidden aria-live="polite"><div class="preview-thumb-wrap"><img id="preview-thumb" alt="TikTok video preview"><span class="preview-play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m9 6 9 6-9 6z"/></svg></span></div><div class="preview-details"><div class="preview-label"><span class="check-dot">✓</span> PREVIEW READY</div><h2 id="preview-title">TikTok video</h2><p>Looks like your moment. Ready to save?</p><button type="button" class="preview-download-btn" id="preview-download-btn">Save this moment <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11m-4-4 4 4 4-4M5 19h14"/></svg></button></div></div>
+<p class="form-note" id="status" aria-live="polite">Only save videos you own or have permission to download.</p>
+<div class="trust-row"><span><svg viewBox="0 0 24 24"><path d="M12 3 5 6v5c0 5 3.2 8 7 10 3.8-2 7-5 7-10V6z"/></svg> No account needed</span><span><svg viewBox="0 0 24 24"><path d="M12 3v18M3 12h18"/></svg> Simple & quick</span><span><svg viewBox="0 0 24 24"><path d="M6 3h12v18H6zM9 6h6M10 18h4"/></svg> Works on mobile</span></div>
+</div>
+<div class="phone-stage" aria-hidden="true"><div class="phone-frame"><div class="phone-notch"></div><div class="phone-screen"><div class="phone-status"><span>9:41</span><span>● ● ▰</span></div><div class="phone-kicker">YOUR SAVED MOMENTS</div><div class="phone-media"><div class="media-sun"></div><div class="media-play"><svg viewBox="0 0 24 24"><path d="m9 6 9 6-9 6z"/></svg></div><span class="media-caption">Little things.<br><strong>Big memories.</strong></span></div><div class="phone-bottom"><div class="phone-thumb-mini"><svg viewBox="0 0 24 24"><path d="M12 3v12m-4-4 4 4 4-4M5 19h14"/></svg></div><div><b>Your video</b><small>Ready to keep</small></div><span class="phone-ready">READY</span></div></div></div><div class="stage-caption"><span class="stage-bullet"></span> Keep the good stuff.</div></div>
+<div class="hero-footnote">Save content responsibly. Respect creators' rights and platform rules.</div>
+</section>
+<section class="how-section" id="how"><div class="section-heading"><div class="eyebrow">THREE EASY STEPS</div><h2>From link to <span class="accent-text">little keepsake.</span></h2><p>No complicated process. Just a few taps and you're there.</p></div>
+<div class="steps-path"><article class="step"><div class="step-number">01</div><div class="step-icon"><svg viewBox="0 0 24 24"><path d="M10 13.5 14.5 9M8.5 15.5l-1 1a4 4 0 0 1-5.7-5.7l3-3a4 4 0 0 1 5.7 0m5 0 1-1a4 4 0 0 1 5.7 5.7l-3 3a4 4 0 0 1-5.7 0"/></svg></div><h3>Drop your link</h3><p>Copy a TikTok video link and paste it into TikSave.</p></article><article class="step"><div class="step-number">02</div><div class="step-icon"><svg viewBox="0 0 24 24"><path d="M4 5h16v14H4zM9 9l6 3-6 3z"/></svg></div><h3>Meet your preview</h3><p>We find your video and show a preview before you save.</p></article><article class="step"><div class="step-number">03</div><div class="step-icon"><svg viewBox="0 0 24 24"><path d="M12 3v12m-4-4 4 4 4-4M5 19h14"/></svg></div><h3>Keep your moment</h3><p>Download the video and save it right to your device.</p></article></div></section>
+<section class="features-section" id="features"><div class="features-inner"><div class="features-copy"><div class="eyebrow">MADE TO BE EASY</div><h2>Less fuss.<br><span class="accent-text">More moments.</span></h2><p>Just the essentials, wrapped in a thoughtful little experience. No clutter, no complicated steps—just a clean place to start.</p></div><div class="feature-list"><article><div class="feature-icon"><svg viewBox="0 0 24 24"><path d="M4 5h16v14H4zM8 9h8M8 13h5"/></svg></div><div><h3>Simple by design</h3><p>A clean, responsive interface for desktop, tablet, and mobile.</p></div></article><article><div class="feature-icon"><svg viewBox="0 0 24 24"><path d="M12 3 4 7v5c0 4.5 3.4 7.5 8 9 4.6-1.5 8-4.5 8-9V7zM8.5 12l2.3 2.3 4.8-4.8"/></svg></div><div><h3>Preview first</h3><p>See the video thumbnail before you decide to download.</p></div></article><article><div class="feature-icon"><svg viewBox="0 0 24 24"><path d="M12 3v18M3 12h18M5 5l14 14M19 5 5 19"/></svg></div><div><h3>Creator-first</h3><p>Save only content you own or have permission to keep.</p></div></article></div></div></section>
+<section class="faq-section" id="faq"><div class="section-heading"><div class="eyebrow">GOOD TO KNOW</div><h2>A few quick <span class="accent-text">answers.</span></h2></div><div class="faq-list"><details><summary>Is TikSave free to use?<span class="faq-plus">+</span></summary><p>TikSave currently doesn't require an account or payment to use. Availability depends on our video processing service.</p></details><details><summary>Do my videos get stored on TikSave?<span class="faq-plus">+</span></summary><p>TikSave doesn't intentionally keep permanent copies of downloaded videos. Video processing is handled by a third-party service, and downloads are streamed to your device.</p></details><details><summary>Can I save any TikTok video?<span class="faq-plus">+</span></summary><p>Some videos may be private, restricted, unavailable, or unsupported. Only download videos you own or have permission to save.</p></details><details><summary>Why isn't my link working?<span class="faq-plus">+</span></summary><p>Check that it's a valid TikTok video link and that the video is public and available. If it still fails, try again later.</p></details></div></section>
+<section class="closing"><div class="closing-box"><div class="closing-spark"><svg viewBox="0 0 24 24"><path d="m12 3 2.2 6.8L21 12l-6.8 2.2L12 21l-2.2-6.8L3 12l6.8-2.2z"/></svg></div><h2>Ready to save a moment?</h2><p>Copy a TikTok link and start above.</p><a href="#download" class="closing-btn">Back to the downloader <span>↑</span></a></div></section>
+</main>
+<footer><a class="brand footer-brand" href="#"><svg class="brand-mark" viewBox="0 0 40 40" aria-hidden="true"><path d="M11 6.5h18v27L20 27l-9 6.5z" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linejoin="round"/><path d="M20 11v11m-4-4 4 4 4-4" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Tik<span class="brand-accent">Save</span></span></a><span>Save responsibly. Respect creators.</span><div class="footer-links"><a href="#how">How it works</a><a href="#faq">FAQ</a><a href="/404.html">Help</a></div></footer>
+<script src="script.js"></script>
+</body></html>
