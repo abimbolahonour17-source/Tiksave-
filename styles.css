@@ -329,3 +329,6 @@
  border-color:rgba(0,0,0,.10);
  box-shadow:0 16px 42px rgba(0,0,0,.08);
 }
+
+/* Remove the unused hamburger menu; keep theme switch at the right side of the header. */
+.menu-button{display:none!important}
