@@ -308,3 +308,24 @@
 :root[data-theme="light"] .closing-box{
  background:radial-gradient(ellipse at top,rgba(194,151,88,.22),transparent 65%),rgba(250,244,231,.9) !important;
 }
+
+/* Light theme: white with subtle black/gray tones */
+:root[data-theme="light"] body{
+ background:
+  radial-gradient(ellipse at 12% 18%,rgba(245,245,245,.95),transparent 38%),
+  radial-gradient(ellipse at 90% 28%,rgba(215,215,215,.48),transparent 42%),
+  linear-gradient(180deg,#ffffff 0%,#f4f4f4 55%,#e8e8e8 100%) !important;
+ background-attachment:fixed;
+}
+:root[data-theme="light"] .features-section{
+ background:rgba(220,220,220,.38) !important;
+}
+:root[data-theme="light"] .download-form,
+:root[data-theme="light"] .visual-card,
+:root[data-theme="light"] .video-preview,
+:root[data-theme="light"] .step,
+:root[data-theme="light"] .closing-box{
+ background:rgba(255,255,255,.88) !important;
+ border-color:rgba(0,0,0,.10);
+ box-shadow:0 16px 42px rgba(0,0,0,.08);
+}
