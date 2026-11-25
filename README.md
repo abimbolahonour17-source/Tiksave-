@@ -1,38 +1,39 @@
 # TikSave
 
-A lightweight, mobile-friendly landing page for TikSave, a planned tool for saving TikTok videos users own or have permission to download.
+Responsive video-download landing page with clipboard paste and a Vercel serverless API for downloading **direct video-file URLs from approved hosts**.
 
-## Current status
+## Current functionality
 
-- Responsive landing page and visual design
-- Link input and clipboard paste interaction
-- Basic TikTok URL validation
-- Clear UI status messages
-- **Downloader backend is not implemented yet.** The current button validates a URL; it does not retrieve or download video files.
+- Responsive UI, link form, clipboard paste
+- Frontend submits to `POST /api/download`
+- Vercel serverless endpoint streams direct video files to the browser
+- Host allowlist (`DOWNLOAD_ALLOWED_HOSTS`) required
+- HTTPS-only, redirect-denied, video MIME validation, 50 MB cap, request timeout
+- TikTok share links are currently **not downloaded**. They are explicitly rejected; the official TikTok developer APIs provide video metadata/display and data-export flows, not an arbitrary share-link-to-MP4 endpoint. Add a permitted provider/authorized account-export integration before enabling that feature.
 
-## Run locally
+## Deploy on Vercel
 
-No build step is required.
+1. Import this GitHub repo into Vercel.
+2. Set Framework Preset to **Other** (no build command; static files plus serverless API).
+3. In Project → Settings → Environment Variables, add:
+   - `DOWNLOAD_ALLOWED_HOSTS`: comma-separated approved hostnames that serve direct video files, e.g. hosts you control or have permission to use.
+4. Redeploy after adding environment variables.
+5. Open the deployed site and test with a direct HTTPS MP4/WebM/MOV file on an allowlisted host.
 
-1. Clone this repository.
-2. Open `index.html` in a browser, or serve the folder with a static server.
-3. Paste a TikTok URL and test the validation states.
+**Do not** set this allowlist to broad, untrusted hosts. The endpoint refuses TikTok page/share URLs, IP literals, local hosts, redirects, non-video content, and files larger than 50 MB.
 
-## Files
+## Local testing
 
-- `index.html` — page structure and content
-- `styles.css` — responsive dark/purple design
-- `script.js` — paste button, validation, and status messages
-- `docs/IMPLEMENTATION_PLAN.md` — phased implementation plan
+Run using a local Vercel environment (recommended) with `vercel dev` after installing the Vercel CLI. The API endpoint is `/api/download`.
 
-## Roadmap
+## Repository files
 
-1. Confirm authorized content use and platform-policy/legal requirements.
-2. Choose an approved media source/API and design the server-side download flow.
-3. Build backend endpoint with strict URL validation, rate limits, timeouts, and safe temporary-file handling.
-4. Connect frontend to backend and show progress/errors.
-5. Add tests, privacy/terms, monitoring, and deploy.
+- `index.html` — homepage
+- `styles.css` — UI styling
+- `script.js` — frontend download workflow
+- `api/download.js` — Vercel serverless download endpoint
+- `docs/IMPLEMENTATION_PLAN.md` — roadmap
 
 ## Responsible use
 
-TikSave should only support downloads of videos the user owns or is authorized to save. Respect creators' rights, TikTok's terms, and applicable law. Do not bypass access controls or download restricted content.
+Only download videos you own or are authorized to save. Respect creators' rights, applicable laws, and platform terms.
