@@ -49,3 +49,9 @@
 :root[data-theme="light"] .theme-toggle{background:linear-gradient(100deg,#ffe9a6,#f5cf8e);border-color:rgba(160,115,20,.22)}
 :root[data-theme="light"] .switch-knob{transform:translateX(0);background:#fff}
 @media(max-width:760px){.theme-toggle{margin-left:auto;margin-right:8px}}
+
+/* Slightly smaller theme slider, still easy to see */
+.theme-toggle{width:60px;height:32px;min-height:32px;margin-right:12px}
+.switch-knob{width:24px;height:24px;top:3px;left:3px}
+:root[data-theme="dark"] .switch-knob{transform:translateX(28px)}
+@media(max-width:760px){.theme-toggle{width:60px;height:32px;min-height:32px;margin-right:8px}}
