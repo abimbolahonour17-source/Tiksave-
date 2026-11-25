@@ -50,3 +50,6 @@ previewDownloadBtn.addEventListener('click',()=>{
  statusEl.textContent='Download requested. If your browser opens the file instead, use the browser download option.';
  setTimeout(()=>{previewDownloadBtn.disabled=false;previewDownloadBtn.textContent='Download this video ↓';},3500);
 });
+
+// Dark/light theme toggle (stores the visitor's choice)
+(function(){const root=document.documentElement,button=document.getElementById('theme-toggle');if(!button)return;function apply(theme){root.dataset.theme=theme;try{localStorage.setItem('tiksave-theme',theme)}catch{}button.textContent=theme==='dark'?'☼':'☾';button.setAttribute('aria-label',theme==='dark'?'Switch to light theme':'Switch to dark theme');button.title=theme==='dark'?'Switch to light theme':'Switch to dark theme'}let current='dark';try{current=localStorage.getItem('tiksave-theme')||'dark'}catch{}apply(current);button.addEventListener('click',()=>apply(root.dataset.theme==='dark'?'light':'dark'));})();
