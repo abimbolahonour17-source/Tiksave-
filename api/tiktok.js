@@ -3,7 +3,8 @@ const API_TIMEOUT_MS = 25000;
 const TIKTOK_HOSTS = ["tiktok.com", "vm.tiktok.com", "vt.tiktok.com"];
 function sendJson(res,status,body){res.status(status).setHeader("Content-Type","application/json; charset=utf-8");res.setHeader("Cache-Control","no-store");res.end(JSON.stringify(body));}
 function isTikTokUrl(raw){try{const u=new URL(raw);const h=u.hostname.toLowerCase();return u.protocol==="https:"&&!u.username&&!u.password&&TIKTOK_HOSTS.some(d=>h===d||h.endsWith("."+d));}catch{return false;}}
-function isSafeDownloadUrl(raw){try{const u=new URL(raw);return u.protocol==="https:"&&!u.username&&!u.password&&!u.hostname.includes(":")&&!/^\d+(\.\d+){3}$/.test(u.hostname);}catch{return false;}}
+const MEDIA_HOSTS=["tiktokcdn.com","tiktokcdn-us.com","tiktokcdn-eu.com","tokcdn.com","tiktokv.com","tikwm.com","byteoversea.com","ibytedtos.com"];
+function isSafeDownloadUrl(raw){try{const u=new URL(raw,"https://www.tikwm.com/"),h=u.hostname.toLowerCase();return u.protocol==="https:"&&!u.username&&!u.password&&!/^\d+(\.\d+){3}$/.test(h)&&MEDIA_HOSTS.some(d=>h===d||h.endsWith("."+d));}catch{return false;}}
 async function resolveTikTok(input,signal){
  const form=new URLSearchParams({url:input,hd:"1"});
  const upstream=await fetch("https://www.tikwm.com/api/",{method:"POST",headers:{"Content-Type":"application/x-www-form-urlencoded","User-Agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"},body:form,signal});
@@ -12,8 +13,9 @@ async function resolveTikTok(input,signal){
  if(Number(result?.code)!==0||!result?.data)throw new Error(typeof result?.msg==="string"?result.msg.slice(0,180):"TikWM could not process this video.");
  const data=result.data;
  if(Array.isArray(data.images)&&data.images.length)throw new Error("This TikTok post is a photo slideshow. Only video posts are supported.");
- const videoUrl=[data.hdplay,data.play].find(url=>typeof url==="string"&&isSafeDownloadUrl(url));
- if(!videoUrl)throw new Error("TikWM did not return a valid video link.");
+ const rawVideoUrl=[data.hdplay,data.play].find(url=>typeof url==="string"&&url.trim());
+ const videoUrl=rawVideoUrl&&isSafeDownloadUrl(rawVideoUrl)?new URL(rawVideoUrl,"https://www.tikwm.com/").href:null;
+ if(!videoUrl)throw new Error("TikWM did not return a supported video link.");
  const thumbnail=[data.cover,data.origin_cover].find(url=>typeof url==="string"&&isSafeDownloadUrl(url))||null;
  return {videoUrl,thumbnail,title:typeof data.title==="string"?data.title.slice(0,180):""};
 }
