@@ -1,6 +1,6 @@
 // TikSave download proxy. Uses the media URL already resolved by /api/tiktok to avoid a second TikWM lookup.
 const TIMEOUT_MS=25000,MAX_BYTES=50*1024*1024;
-const MEDIA_HOSTS=["tiktokcdn.com","tiktokcdn-us.com","tiktokcdn-eu.com","tokcdn.com","tiktokv.com","tikwm.com","byteoversea.com","ibytedtos.com"];
+const MEDIA_HOSTS=["tiktokcdn.com","tiktokcdn-us.com","tiktokcdn-eu.com","tokcdn.com","tiktokv.com","tikwm.com","byteoversea.com","ibytedtos.com","muscdn.com","snssdk.com","tiktok.com","tiktokstatic.com"];
 function sendJson(res,status,body){res.status(status).setHeader("Content-Type","application/json; charset=utf-8");res.setHeader("Cache-Control","no-store");res.end(JSON.stringify(body));}
 function safeMediaUrl(raw){try{const u=new URL(raw),h=u.hostname.toLowerCase();return u.protocol==="https:"&&!u.username&&!u.password&&!h.includes(":")&&!/^\d+(\.\d+){3}$/.test(h)&&MEDIA_HOSTS.some(d=>h===d||h.endsWith("."+d));}catch{return false;}}
 export default async function handler(req,res){
