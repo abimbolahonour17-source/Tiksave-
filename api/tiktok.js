@@ -16,7 +16,7 @@ async function resolveTikTok(input,signal){
  const rawVideoUrl=[data.hdplay,data.play].find(url=>typeof url==="string"&&url.trim());
  const videoUrl=rawVideoUrl&&normalizeMediaUrl(rawVideoUrl);
  if(!videoUrl)throw new Error("TikWM did not return a supported video link.");
- const thumbnail=[data.cover,data.origin_cover].find(url=>typeof url==="string"&&isSafeDownloadUrl(url))||null;
+ const thumbnail=[data.cover,data.origin_cover].map(url=>typeof url==="string"?url.trim():null).find(url=>url&&/^https:\/\//i.test(url)&&(()=>{try{const u=new URL(url);return !u.username&&!u.password&&!/^\d+(\.\d+){3}$/.test(u.hostname);}catch{return false;}}))||null;
  return {videoUrl,thumbnail,title:typeof data.title==="string"?data.title.slice(0,180):""};
 }
 export default async function handler(req,res){
