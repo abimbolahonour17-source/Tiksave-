@@ -41,14 +41,21 @@ form.addEventListener('submit',async event=>{
  }catch{statusEl.textContent='Network error. Please try again.';}
  finally{downloadBtn.disabled=false;downloadBtn.classList.remove('loading');}
 });
-previewDownloadBtn.addEventListener('click',()=>{
- if(!resolvedTikTokLink)return;
+previewDownloadBtn.addEventListener('click',async()=>{
+ if(!resolvedTikTokLink||!resolvedMediaUrl)return;
  previewDownloadBtn.disabled=true;previewDownloadBtn.textContent='Preparing download…';
- statusEl.textContent='Preparing your video download…';
- const downloadUrl='/api/tiktok-download?media='+encodeURIComponent(resolvedMediaUrl);
- triggerDownload(downloadUrl,'TikSave-video.mp4');
- statusEl.textContent='Download requested. If your browser opens the file instead, use the browser download option.';
- setTimeout(()=>{previewDownloadBtn.disabled=false;previewDownloadBtn.textContent='Download this video ↓';},3500);
+ statusEl.textContent='Preparing your video download. Longer videos may take a little more time…';
+ try{
+  const downloadUrl='/api/tiktok-download?media='+encodeURIComponent(resolvedMediaUrl);
+  const response=await fetch(downloadUrl);
+  if(!response.ok){let message='Download failed. Please try again.';try{const data=await response.json();if(data.error)message=data.error;}catch{}statusEl.textContent=message;return;}
+  const type=response.headers.get('content-type')||'';
+  if(type.includes('application/json')){let data={};try{data=await response.json();}catch{}statusEl.textContent=data.error||'Download failed. Please try again.';return;}
+  const blob=await response.blob();
+  const blobUrl=URL.createObjectURL(blob);triggerDownload(blobUrl,'TikSave-video.mp4');setTimeout(()=>URL.revokeObjectURL(blobUrl),60000);
+  statusEl.textContent='Download ready. Check your browser downloads.';
+ }catch{statusEl.textContent='Network error during download. Please try again.';}
+ finally{previewDownloadBtn.disabled=false;previewDownloadBtn.textContent='Download this video ↓';}
 });
 
 // Dark/light theme toggle (stores the visitor's choice)
