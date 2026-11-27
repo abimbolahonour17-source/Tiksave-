@@ -17,7 +17,7 @@ function isTikTokUrl(value){try{const url=new URL(value);const host=url.hostname
 function triggerDownload(url,filename){const anchor=document.createElement('a');anchor.href=url;anchor.download=filename||'video.mp4';anchor.rel='noopener';document.body.appendChild(anchor);anchor.click();anchor.remove();}
 function hidePreview(){preview.hidden=true;previewThumb.removeAttribute('src');resolvedTikTokLink='';resolvedMediaUrl='';}
 pasteBtn.addEventListener('click',async()=>{try{const text=await navigator.clipboard.readText();if(text){input.value=text.trim();hidePreview();statusEl.textContent='Link pasted. Click Download video to preview it.';}}catch{statusEl.textContent='Clipboard access unavailable. Paste your link into the box manually.';input.focus();}});
-input.addEventListener('input',hidePreview);
+input.addEventListener('input',()=>{hidePreview();hideProgress();});
 form.addEventListener('submit',async event=>{
  event.preventDefault();const value=input.value.trim();
  if(!value){statusEl.textContent='Paste a video link to continue.';input.focus();return;}
