@@ -45,25 +45,15 @@ form.addEventListener('submit',async event=>{
  }catch{statusEl.textContent='Network error. Please try again.';}
  finally{if(generationTimer)clearInterval(generationTimer);downloadBtn.disabled=false;downloadBtn.classList.remove('loading');}
 });
-previewDownloadBtn.addEventListener('click',async()=>{
+previewDownloadBtn.addEventListener('click',()=>{
  if(!resolvedTikTokLink||!resolvedMediaUrl)return;
- previewDownloadBtn.disabled=true;previewDownloadBtn.textContent='Downloading…';
- statusEl.textContent='Downloading video…';showProgress(null,'Connecting to video…');
- try{
-  const downloadUrl='/api/tiktok-download?media='+encodeURIComponent(resolvedMediaUrl),response=await fetch(downloadUrl);
-  if(!response.ok){let message='Download failed. Please try again.';try{const data=await response.json();if(data.error)message=data.error;}catch{}statusEl.textContent=message;hideProgress();return;}
-  const type=response.headers.get('content-type')||'';
-  if(type.includes('application/json')){let data={};try{data=await response.json();}catch{}statusEl.textContent=data.error||'Download failed. Please try again.';hideProgress();return;}
-  const total=Number(response.headers.get('content-length')||0),reader=response.body.getReader(),chunks=[];let received=0;
-  while(true){const {done,value}=await reader.read();if(done)break;chunks.push(value);received+=value.byteLength;
-   if(total>0){const percent=Math.round(received/total*100);showProgress(percent,percent+'% · '+(received/1048576).toFixed(1)+' MB of '+(total/1048576).toFixed(1)+' MB');}
-   else showProgress(null,(received/1048576).toFixed(1)+' MB downloaded');
-  }
-  showProgress(100,'100% · Preparing file…');
-  const blob=new Blob(chunks,{type:'video/mp4'}),blobUrl=URL.createObjectURL(blob);triggerDownload(blobUrl,'TikSave-video.mp4');setTimeout(()=>URL.revokeObjectURL(blobUrl),60000);
-  statusEl.textContent='Download complete. Save or open the video from your browser downloads.';showProgress(100,'100% · Download complete');
- }catch{statusEl.textContent='Download interrupted. Please try again.';hideProgress();}
- finally{previewDownloadBtn.disabled=false;previewDownloadBtn.textContent='Download this video ↓';}
+ previewDownloadBtn.disabled=true;previewDownloadBtn.textContent='Starting download…';
+ statusEl.textContent='Opening your browser download manager…';
+ hideProgress();
+ const downloadUrl='/api/tiktok-download?media='+encodeURIComponent(resolvedMediaUrl);
+ triggerDownload(downloadUrl,'TikSave-video.mp4');
+ statusEl.textContent='Download started. Check your browser’s Downloads panel for progress.';
+ setTimeout(()=>{previewDownloadBtn.disabled=false;previewDownloadBtn.textContent='Download this video ↓';},2000);
 });
 // Dark/light theme toggle (stores the visitor's choice)
 (function(){const root=document.documentElement,button=document.getElementById('theme-toggle');if(!button)return;function apply(theme){root.dataset.theme=theme;try{localStorage.setItem('tiksave-theme',theme)}catch{}button.setAttribute('aria-pressed',theme==='dark'?'true':'false');button.setAttribute('aria-label',theme==='dark'?'Switch to light theme':'Switch to dark theme');button.title=theme==='dark'?'Switch to light theme':'Switch to dark theme'}let current='dark';try{current=localStorage.getItem('tiksave-theme')||'dark'}catch{}apply(current);button.addEventListener('click',()=>apply(root.dataset.theme==='dark'?'light':'dark'));})();
