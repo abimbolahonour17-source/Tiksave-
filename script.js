@@ -51,8 +51,8 @@ previewDownloadBtn.addEventListener('click',()=>{
  statusEl.textContent='Starting download in your browser. Check the Downloads panel for progress.';
  hideProgress();
  const downloadUrl='/api/tiktok-download?media='+encodeURIComponent(resolvedMediaUrl);
- // Navigate a new tab directly to the attachment endpoint so the browser download manager handles the stream.
- const anchor=document.createElement('a');anchor.href=downloadUrl;anchor.target='_blank';anchor.rel='noopener';anchor.style.display='none';document.body.appendChild(anchor);anchor.click();anchor.remove();
+ // Trigger a same-page native download; no new tab or window.
+ const anchor=document.createElement('a');anchor.href=downloadUrl;anchor.download='TikSave-video.mp4';anchor.style.display='none';document.body.appendChild(anchor);anchor.click();anchor.remove();
  setTimeout(()=>{previewDownloadBtn.disabled=false;previewDownloadBtn.textContent='Download this video ↓';},1800);
 });
 // Dark/light theme toggle (stores the visitor's choice)
