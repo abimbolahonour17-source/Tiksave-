@@ -48,12 +48,12 @@ form.addEventListener('submit',async event=>{
 previewDownloadBtn.addEventListener('click',()=>{
  if(!resolvedTikTokLink||!resolvedMediaUrl)return;
  previewDownloadBtn.disabled=true;previewDownloadBtn.textContent='Starting download…';
- statusEl.textContent='Opening your browser download manager…';
+ statusEl.textContent='Starting download in your browser. Check the Downloads panel for progress.';
  hideProgress();
  const downloadUrl='/api/tiktok-download?media='+encodeURIComponent(resolvedMediaUrl);
- triggerDownload(downloadUrl,'TikSave-video.mp4');
- statusEl.textContent='Download started. Check your browser’s Downloads panel for progress.';
- setTimeout(()=>{previewDownloadBtn.disabled=false;previewDownloadBtn.textContent='Download this video ↓';},2000);
+ // Navigate a new tab directly to the attachment endpoint so the browser download manager handles the stream.
+ const anchor=document.createElement('a');anchor.href=downloadUrl;anchor.target='_blank';anchor.rel='noopener';anchor.style.display='none';document.body.appendChild(anchor);anchor.click();anchor.remove();
+ setTimeout(()=>{previewDownloadBtn.disabled=false;previewDownloadBtn.textContent='Download this video ↓';},1800);
 });
 // Dark/light theme toggle (stores the visitor's choice)
 (function(){const root=document.documentElement,button=document.getElementById('theme-toggle');if(!button)return;function apply(theme){root.dataset.theme=theme;try{localStorage.setItem('tiksave-theme',theme)}catch{}button.setAttribute('aria-pressed',theme==='dark'?'true':'false');button.setAttribute('aria-label',theme==='dark'?'Switch to light theme':'Switch to dark theme');button.title=theme==='dark'?'Switch to light theme':'Switch to dark theme'}let current='dark';try{current=localStorage.getItem('tiksave-theme')||'dark'}catch{}apply(current);button.addEventListener('click',()=>apply(root.dataset.theme==='dark'?'light':'dark'));})();
